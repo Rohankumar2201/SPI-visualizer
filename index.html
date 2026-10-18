@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SPI Visualizer</title>
+<link rel="stylesheet" href="style.css"></head><body>
+<header><h1>SPI Visualizer</h1>
+<select id="preset" aria-label="Preset"></select>
+<button id="theme">Dark / Light</button></header>
+<main>
+<aside class="pn"><h2>Configuration</h2>
+<div class="row"><div><label>SPI mode</label><select id="mode"><option value="0">Mode 0</option><option value="1">Mode 1</option><option value="2">Mode 2</option><option value="3">Mode 3</option></select></div>
+<div><label>CPOL</label><select id="cpol"><option>0</option><option>1</option></select></div>
+<div><label>CPHA</label><select id="cpha"><option>0</option><option>1</option></select></div></div>
+<div id="hint"></div>
+<label>Clock frequency</label>
+<div class="row"><select id="freq"><option value="100000">100 kHz</option><option value="500000">500 kHz</option><option value="1000000" selected>1 MHz</option><option value="5000000">5 MHz</option><option value="10000000">10 MHz</option><option value="custom">Custom</option></select>
+<input id="custom" type="number" value="2000" title="Custom frequency in kHz" style="display:none"></div>
+<div id="clk" class="mono" style="margin-top:4px"></div>
+<div class="row"><div><label>Data width</label><select id="width"><option>8</option><option>16</option><option>32</option></select></div>
+<div><label>Bit order</label><select id="order"><option value="msb">MSB first</option><option value="lsb">LSB first</option></select></div></div>
+<div class="row"><div><label>Words (1–16)</label><input id="words" type="number" value="1"></div>
+<div><label>Delay (clock periods)</label><input id="delay" type="number" step="0.5" value="0"></div></div>
+<label>Chip select</label><select id="cs"><option value="0">Active-low</option><option value="1">Active-high</option></select>
+<label>Master TX (MOSI) — hex 0x.. or binary 0b.., comma-separated</label><input id="mtx" value="0xA5" class="mono">
+<label>Slave TX (MISO)</label><input id="stx" value="0x3C" class="mono">
+<div id="err"></div>
+<div class="bar" style="margin-top:10px"><button id="save">Save config</button><button id="png">PNG</button><button id="csv">CSV</button><button id="copy">Copy summary</button></div>
+</aside>
+<section>
+<div class="pn"><h2>Waveforms</h2>
+<div class="bar"><button id="zi">Zoom +</button><button id="zo">Zoom −</button><button id="fit">Fit</button>
+<button id="play">Play</button><button id="pause">Pause</button><button id="step">Step edge</button><button id="reset">Reset</button>
+<select id="speed" aria-label="Speed"><option value="0.25">0.25×</option><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select></div>
+<div id="wave"></div>
+<div id="cursor" class="mono"></div></div>
+<div class="grid">
+<div class="pn"><h2>Summary</h2><pre id="sum"></pre></div>
+<div class="pn"><h2>Bit inspector</h2><pre id="insp"></pre></div>
+<div class="pn"><h2>Bit table</h2><div class="sc"><table id="bits"></table></div></div>
+<div class="pn"><h2>Events</h2><div class="sc"><pre id="ev"></pre></div></div>
+</div></section></main>
+<script src="spi-core.js"></script>
+<script src="app.js"></script></body></html>
